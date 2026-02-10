@@ -1,18 +1,24 @@
 export default function Home() {
+  // This is a "Secret" that should never be sent to the browser
+  const MOCK_API_KEY = "sk_test_51MzSobertoolsSecretKey_2026";
+
   async function mySecretAction(formData: FormData) {
     'use server';
-    // We access the server-side console here
-    console.log("SERVER SIDE: Action triggered by user!");
-    // In a real hack, we'd try to leak data here
+    console.log("Action triggered!");
+    // VULNERABILITY: Returning sensitive data in a server action
+    return { 
+      status: "success", 
+      exposed_secret: MOCK_API_KEY 
+    };
   }
 
   return (
     <main style={{ padding: '2rem', textAlign: 'center', fontFamily: 'sans-serif' }}>
-      <h1>Bug Bounty Lab</h1>
-      <p>The button below sends a request with a hidden <b>Next-Action</b> ID.</p>
+      <h1>Bug Bounty Lab: Phase 2</h1>
+      <p>Target ID: <b>4068cd6...</b></p>
       
       <form action={mySecretAction}>
-        <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', border: '1px solid #000' }}>
+        <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer' }}>
           Trigger Secret Action
         </button>
       </form>
