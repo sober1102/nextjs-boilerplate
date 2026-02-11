@@ -1,18 +1,13 @@
-export const dynamic = 'force-dynamic';
-export default function Home() {
-  async function mySecretAction() {
-    'use server';
-    // We return a simple string. No objects, no complexity.
-    // This is how a real leak usually looks in a text stream.
-    return "SECRET_LEAK:sk_test_51MzSobertoolsSecretKey_2026";
-  }
+// app/page.tsx
 
-  return (
-    <main style={{ padding: '2rem', textAlign: 'center' }}>
-      <h1>Bug Bounty Lab: Final Phase</h1>
-      <form action={mySecretAction as any}>
-        <button type="submit">Extract Secret</button>
-      </form>
-    </main>
-  );
+async function mySecretAction() {
+  'use server';
+  
+  const secretKey = process.env.STRIPE_SECRET_KEY; 
+  
+  // Use the key for internal logic (like a fetch to Stripe)
+  // console.log("Using key internally..."); 
+
+  // NEVER return the key itself
+  return { success: true, message: "Action completed securely" };
 }
