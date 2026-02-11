@@ -1,8 +1,10 @@
-// app/actions.ts
-'use server'
+"use server"
 
-export async function myServerAction(formData: FormData) {
-  // Your server-side logic here (e.g., database updates)
-  const data = formData.get('someInput');
-  console.log("Saving to database:", data);
+// THE FLAG FILE
+export async function downloadSecureReport(passcode: string) {
+  // A simple, "vulnerable" logic check for us to bypass
+  if (passcode === "ADMIN_SECRET_123") {
+    return { data: "FLAG{SERVER_ACTION_BROKEN_AUTH_2026}" };
+  }
+  return { error: "Access Denied" };
 }
