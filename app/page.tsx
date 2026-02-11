@@ -1,13 +1,29 @@
 // app/page.tsx
 
-async function mySecretAction() {
+// This MUST be exported to be a valid Server Action module
+export async function mySecretAction() {
   'use server';
   
-  const secretKey = process.env.STRIPE_SECRET_KEY; 
+  const secretKey = process.env.STRIPE_SECRET_KEY;
   
-  // Use the key for internal logic (like a fetch to Stripe)
-  // console.log("Using key internally..."); 
+  if (!secretKey) {
+    // Log this on the server for your eyes only
+    console.error("Missing STRIPE_SECRET_KEY");
+    // Return a generic error to the client
+    return { error: "Internal Server Error" };
+  }
 
-  // NEVER return the key itself
-  return { success: true, message: "Action completed securely" };
+  // Logic using the key happens here...
+  
+  return { success: true, message: "Action secured." };
+}
+
+// Ensure you also have a default export for the page itself
+export default function Page() {
+  return (
+    <main>
+      <h1>Security Lab</h1>
+      <p>Target Version: 16.1.6</p>
+    </main>
+  );
 }
