@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { cookies } from "next/headers";
 
@@ -7,7 +7,6 @@ async function getUserFromSession() {
 
   if (!session) return null;
 
-  // simulate session verification
   if (session.value === process.env.ADMIN_SESSION_ID) {
     return { role: "admin" };
   }
@@ -19,7 +18,6 @@ export async function getAdminSystemReport() {
   const user = await getUserFromSession();
 
   if (!user || user.role !== "admin") {
-    console.log("[AUTH FAILURE]: Unauthorized attempt");
     return { error: "Unauthorized" };
   }
 
@@ -28,4 +26,9 @@ export async function getAdminSystemReport() {
     report: process.env.FLAG_VALUE
   };
 }
+
+export async function publicAction() {
+  return { message: "Public endpoint" };
+}
+
 
