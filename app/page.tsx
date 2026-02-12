@@ -1,12 +1,16 @@
 import { publicAction } from "./actions";
 
-export default async function Page() {
-  const result = await publicAction();
-
+export default function Page() {
   return (
-    <main>
+    <main style={{ padding: "2rem" }}>
       <h1>Security Lab</h1>
-      <p>{result.message}</p>
+
+      <form action={publicAction}>
+        <button type="submit">
+          Trigger Public Action
+        </button>
+      </form>
     </main>
   );
 }
+
