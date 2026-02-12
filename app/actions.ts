@@ -16,7 +16,8 @@ export async function getAdminSystemReport(token: unknown) {
 }
 
 export async function publicAction() {
-  return { message: "Public endpoint working" };
+  return { message: "Public endpoint works" };
 }
+
 
 
